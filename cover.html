@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedVault - Secure Blockchain Medical Records</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #dbeafe;
+    --secondary: #0ea5e9;
+    --accent: #06b6d4;
+    --light: #f0f9ff;
+    --dark: #1e293b;
+    --success: #10b981;
+    --error: #ef4444;
+    --warning: #f59e0b;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+    --border-radius: 8px;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Header Styles */
+  header {
+    background-color: white;
+    box-shadow: var(--shadow);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically center all items */
+    padding: 1rem 2rem;
+    min-height: 70px; /* Ensure consistent height for vertical centering */
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .logo h1 {
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center; /* Vertically align nav items */
+  }
+
+  .nav-links a {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--primary);
+  }
+
+  .cta-button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    display: inline-block;
+  }
+  .nav-links .cta-button {
+    color: white;
+}
+  .cta-button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 10rem 0 6rem;
+    background-image: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background-color: rgba(37, 99, 235, 0.1);
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-text {
+    max-width: 600px;
+  }
+
+  .hero-text h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-text p {
+    font-size: 1.2rem;
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+  }
+
+  .hero-image {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Limit max width for better layout */
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column; /* Stack previews vertically */
+    gap: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(10px);
+  }
+
+  .dashboard-preview {
+    position: relative;
+    width: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dashboard-preview img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dashboard-preview:hover {
+    transform: translateY(-10px);
+    z-index: 2;
+  }
+
+  .dashboard-preview:hover img {
+    transform: scale(1.05);
+  }
+
+  .preview-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .dashboard-preview:hover .preview-label {
+    transform: translateY(0);
+  }
+
+  /* Features Section */
+  .features {
+    padding: 6rem 0;
+    background-color: white;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title h2 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+  }
+
+  .section-title p {
+    font-size: 1.1rem;
+    color: var(--gray-600);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    background-color: var(--gray-50);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .feature-card:hover::after {
+    transform: scaleX(1);
+  }
+
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-icon svg {
+    width: 30px;
+    height: 30px;
+    color: var(--primary);
+  }
+
+  .feature-card h3 {
+    font-size: 1.5rem;
+    color: var(--gray-800);
+    margin-bottom: 1rem;
+  }
+
+  .feature-card p {
+    color: var(--gray-600);
+  }
+
+  /* Prerequisites Section */
+  .prerequisites {
+    padding: 6rem 0;
+    background-color: var(--gray-50);
+  }
+
+  .prerequisites-container {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .prerequisites-content {
+    flex: 1;
+  }
+
+  .prerequisites-content h2 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .prerequisites-content p {
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+  }
+
+  .prerequisites-steps {
+    flex: 1;
+  }
+
+  .step {
+    display: flex;
+    margin-bottom: 2rem;
+    opacity: 0.7;
+    transform: translateX(20px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smoother easing */
+  }
+
+  .step.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    font-size: 1.2rem;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-content p {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+  }
+
+  /* Accordion Styles */
+  .accordion {
+    margin-top: 2rem;
+  }
+
+  .accordion-item {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    padding: 1rem;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .accordion-header:hover {
+    background-color: var(--gray-100);
+  }
+
+  .accordion-header h3 {
+    font-size: 1.1rem;
+    color: var(--gray-800);
+  }
+
+  .accordion-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .accordion-item.active .accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: var(--gray-50);
+  }
+
+  .accordion-item.active .accordion-content {
+    max-height: 500px;
+  }
+
+  .accordion-body {
+    padding: 1rem;
+    color: var(--gray-600);
+  }
+
+  /* CTA Section */
+  .cta {
+    padding: 6rem 0;
+    background-image: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .cta-button.secondary {
+    background-color: transparent;
+    border: 2px solid white;
+  }
+
+  .cta-button.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Footer */
+  footer {
+    background-color: var(--dark);
+    color: white;
+    padding: 4rem 0 2rem;
+  }
+
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo-icon {
+    width: 30px;
+    height: 30px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .footer-logo h2 {
+    font-size: 1.2rem;
+    color: white;
+  }
+
+  .footer-about p {
+    color: var(--gray-400);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  .footer-links ul {
+    list-style: none;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-links a {
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: white;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--gray-700);
+    padding-top: 2rem;
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 0.9rem;
+  }
+
+  /* Mobile Menu */
+  .mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--gray-600);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 1024px) {
+    .hero-text h2 {
+      font-size: 2.5rem;
+    }
+    
+    .prerequisites-container {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .hero-image {
+      max-width: 500px; /* Adjust for smaller screens */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      padding: 1rem;
+    }
+    
+    .nav-links {
+      display: none;
+    }
+    
+    .mobile-menu-toggle {
+      display: block;
+    }
+    
+    .hero-content {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .hero-text {
+      margin-bottom: 2rem;
+    }
+    
+    .hero-image {
+      width: 90%;
+      max-width: 400px; /* Further adjust for mobile */
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .section-title h2,
+    .prerequisites-content h2,
+    .cta h2 {
+      font-size: 2rem;
+    }
+  }
+
+  /* Mobile Menu Expanded */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    z-index: 99;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu.active {
+    display: block;
+  }
+
+  .mobile-menu a {
+    display: block;
+    padding: 0.75rem 0;
+    color: var(--gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .mobile-menu a:last-child {
+    border-bottom: none;
+  }
+
+  /* Animation Classes */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1), /* Smoother and longer duration */
+                transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .fade-in.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Tooltip Styles */
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--dark);
+    color: white;
+    text-align: center;
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.85rem;
+  }
+
+  .tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--dark) transparent transparent transparent;
+  }
+
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">M</div>
+        <h1>MedVault</h1>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#prerequisites">Prerequisites</a>
+        <a href="#faq">FAQ</a>
+        <a href="homepage.html" class="cta-button">Get Started</a>
+      </nav>
+      <button class="mobile-menu-toggle">☰</button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="#features">Features</a>
+    <a href="#prerequisites">Prerequisites</a>
+    <a href="#faq">FAQ</a>
+    <a href="homepage.html">Get Started</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h2 class="fade-in">Secure Medical Records on the Blockchain</h2>
+        <p class="fade-in">MedVault provides a secure, transparent, and patient-controlled platform for managing medical records using blockchain technology.</p>
+        <a href="homepage.html" class="cta-button fade-in">Start Using MedVault</a>
+      </div>
+      <div class="hero-image fade-in">
+        <div class="dashboard-preview">
+          <img src="patient.jpg" alt="Patient Dashboard Preview">
+          <div class="preview-label">Patient Dashboard</div>
+        </div>
+        <div class="dashboard-preview">
+          <img src="doctor.jpg" alt="Doctor Dashboard Preview">
+          <div class="preview-label">Doctor Dashboard</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2 class="fade-in">Key Features</h2>
+        <p class="fade-in">Discover how MedVault revolutionizes healthcare record management with blockchain technology</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h3>Secure Storage</h3>
+          <p>Your medical records are encrypted and securely stored on the blockchain, ensuring they cannot be altered or accessed without permission.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+            </svg>
+          </div>
+          <h3>Patient Control</h3>
+          <p>You decide who can access your medical records. Grant and revoke access to healthcare providers with ease.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
+          <h3>Complete History</h3>
+          <p>Access your entire medical history in one place, from any device, at any time. No more lost records or paperwork.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3>Access Logs</h3>
+          <p>View a complete log of who has accessed your records and when, ensuring transparency and accountability.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+          </div>
+          <h3>Easy Uploads</h3>
+          <p>Upload and categorize your medical records with a simple, user-friendly interface. Support for various file formats.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+          </div>
+          <h3>Easy Sharing</h3>
+          <p>Share your medical records with healthcare providers through secure QR codes, email, or direct links.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prerequisites Section -->
+  <section class="prerequisites" id="prerequisites">
+    <div class="container prerequisites-container">
+      <div class="prerequisites-content">
+        <h2 class="fade-in">Getting Started</h2>
+        <p class="fade-in">Before using MedVault, you'll need to set up a few things. Follow these simple steps to get started with blockchain-based medical records.</p>
+        <div class="accordion" id="faq">
+          <div class="accordion-item fade-in">
+            <div class="accordion-header">
+              <h3>What is MetaMask?</h3>
+              <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>MetaMask is a cryptocurrency wallet and gateway to blockchain apps. It's available as a browser extension and mobile app, allowing you to interact with the Ethereum blockchain. For MedVault, MetaMask serves as your secure identity and allows you to control access to your medical records.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item fade-in">
+            <div class="accordion-header">
+              <h3>Do I need technical knowledge?</h3>
+              <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>No technical knowledge is required to use MedVault. Our platform is designed to be user-friendly and intuitive. While blockchain technology powers the backend, the user experience is similar to any modern web application. We handle all the complex technical aspects so you can focus on managing your health records.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item fade-in">
+            <div class="accordion-header">
+              <h3>Is MedVault free to use?</h3>
+              <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>MedVault offers a free basic plan that allows you to store and manage your medical records. There may be small transaction fees for certain blockchain operations, which are minimal. Premium features for healthcare providers and institutions are available with subscription plans.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="prerequisites-steps">
+        <div class="step" id="step1">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Install MetaMask</h3>
+            <p>Download and install the MetaMask extension for your browser from the <a href="https://metamask.io/download/" target="_blank" class="tooltip">official website<span class="tooltip-text">Opens MetaMask's official download page in a new tab</span></a>.</p>
+          </div>
+        </div>
+        <div class="step" id="step2">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Create a Wallet</h3>
+            <p>Follow MetaMask's instructions to create a new wallet. Make sure to securely store your recovery phrase in a safe place.</p>
+          </div>
+        </div>
+        <div class="step" id="step3">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Connect to MedVault</h3>
+            <p>Sign up on MedVault using your MetaMask wallet. Click the "Connect Wallet" button on our homepage to get started.</p>
+          </div>
+        </div>
+        <div class="step" id="step4">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Complete Your Profile</h3>
+            <p>Fill in your basic medical information to create your profile. This information will help healthcare providers deliver better care.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="fade-in">Take Control of Your Medical Records Today</h2>
+      <p class="fade-in">Join thousands of patients and healthcare providers who are already using MedVault to securely manage and share medical records.</p>
+      <div class="cta-buttons">
+        <a href="homepage.html" class="cta-button fade-in">Get Started Now</a>
+        <a href="#features" class="cta-button secondary fade-in">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-about">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">M</div>
+            <h2>MedVault</h2>
+          </div>
+          <p>Secure, transparent, and patient-controlled medical records on the blockchain.</p>
+        </div>
+        <div class="footer-links">
+          <h3>Features</h3>
+          <ul>
+            <li><a href="#features">Secure Storage</a></li>
+            <li><a href="#features">Patient Control</a></li>
+            <li><a href="#features">Complete History</a></li>
+            <li><a href="#features">Access Logs</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#prerequisites">Getting Started</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Documentation</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 MedVault. All rights reserved. Powered by Blockchain Technology.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile Menu Toggle
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      mobileMenuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+      });
+      // Shaji@1976 login for metamask
+      // Accordion Functionality
+      const accordionItems = document.querySelectorAll('.accordion-item');
+      
+      accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        
+        header.addEventListener('click', function() {
+          // Close all other accordion items
+          accordionItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('active');
+            }
+          });
+          
+          // Toggle current item
+          item.classList.toggle('active');
+        });
+      });
+      
+      // Scroll Animation
+      const fadeElements = document.querySelectorAll('.fade-in');
+      const steps = document.querySelectorAll('.step');
+      
+      function checkScroll() {
+        const windowHeight = window.innerHeight;
+        
+        fadeElements.forEach(element => {
+          const elementPosition = element.getBoundingClientRect().top;
+          
+          if (elementPosition < windowHeight - 100) {
+            element.classList.add('active');
+          }
+        });
+        
+        steps.forEach((step, index) => {
+          const stepPosition = step.getBoundingClientRect().top;
+          
+          if (stepPosition < windowHeight - 50) {
+            setTimeout(() => {
+              step.classList.add('active');
+            }, index * 400); // Increased delay for smoother staggered animation
+          }
+        });
+      }
+      
+      // Initial check
+      checkScroll();
+      
+      // Check on scroll
+      window.addEventListener('scroll', checkScroll);
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80, // Account for header height
+              behavior: 'smooth'
+            });
+            
+            // Close mobile menu if open
+            mobileMenu.classList.remove('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

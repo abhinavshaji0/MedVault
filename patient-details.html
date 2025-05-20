@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Details - Doctor Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles_doctor.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <h2>MedVault</h2>
+            <nav>
+                <ul>
+                    <li><a href="doctor-dashboard.html">Dashboard</a></li>
+                    <li><a href="access-records.html" class="active">Access Records</a></li>
+                    <li><a href="add-records.html">Add Records</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="content">
+            <header>
+                <h1>Record Details</h1>
+                <p>View detailed information about the patient's medical record.</p>
+            </header>
+            <section class="record-details">
+                <h2>Selected Record</h2>
+                <div id="recordInfo" class="record-info"></div>
+                <div class="document-preview full-width hidden" id="documentPreview">
+                    <div class="document-preview-header">
+                        <h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Medical Report
+                        </h3>
+                        <div class="document-preview-actions">
+                            <button id="downloadButton" title="Download">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="document-preview-content" id="previewContent"></div>
+                </div>
+                <button id="backButton" class="action-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to Records
+                </button>
+                <h2>Related Previous Visits</h2>
+                <div id="relatedRecords" class="related-records"></div>
+                <p id="statusMessage" class="status-message hidden"></p>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="script-patient-details.js"></script>
+</body>
+</html>

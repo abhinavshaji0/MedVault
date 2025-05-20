@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Log - MedVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles_patient.css">
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>MedVault</h2>
+      <nav>
+        <ul>
+          <li><a href="patient-dashboard.html">Dashboard</a></li>
+          <li><a href="view-records.html">View Medical Records</a></li>
+          <li><a href="upload-records.html">Upload Medical Records</a></li>
+          <li><a href="grant-access.html">Grant Access to Doctor</a></li>
+          <li><a href="access-log.html" class="active">Access Log</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="content">
+      <header>
+        <h1>Access Log</h1>
+        <p>Monitor who has accessed your medical records and when. This log helps you maintain transparency and control over your health data.</p>
+      </header>
+      <section class="access-log">
+        <h2>Recent Access Activity</h2>
+        
+        <div class="filter-controls">
+          <div class="filter-group">
+            <label for="timeFilter">Time Period:</label>
+            <select id="timeFilter">
+              <option value="all">All Time</option>
+              <option value="today" selected>Today</option>
+              <option value="week">Last 7 Days</option>
+              <option value="month">Last 30 Days</option>
+              <option value="year">Last Year</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="statusFilter">Status:</label>
+            <select id="statusFilter">
+              <option value="all" selected>All Status</option>
+              <option value="authorized">Authorized</option>
+              <option value="unauthorized">Unauthorized</option>
+            </select>
+          </div>
+          
+          <div class="search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" placeholder="Search by doctor name or hospital...">
+          </div>
+        </div>
+        
+        <div class="log-table-container">
+          <table class="log-table">
+            <thead>
+              <tr>
+                <th>Doctor</th>
+                <th>Hospital</th>
+                <th>Record Type</th>
+                <th>Access Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated dynamically by script_access_log.js -->
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="pagination">
+          <div class="pagination-info"></div>
+          <div class="pagination-controls"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script_access_log.js"></script>
+</body>
+</html>
