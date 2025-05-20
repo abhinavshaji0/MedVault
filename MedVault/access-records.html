@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Patient Records - MedVault</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles_doctor.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <h2>MedVault</h2>
+            <nav>
+                <ul>
+                    <li><a href="doctor-dashboard.html">Dashboard</a></li>
+                    <li><a href="access-records.html" class="active">Access Records</a></li>
+                    <li><a href="add-records.html">Add Records</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="content">
+            <header>
+                <h1>Access Patient Records</h1>
+                <p>Search for patients by their Ethereum address to view their medical records.</p>
+            </header>
+            <section class="search-records">
+                <h2>Search Patient</h2>
+                <form id="searchForm">
+                    <label for="patientAddress">Patient Ethereum Address:</label>
+                    <input type="text" id="patientAddress" placeholder="e.g., 0x1234...5678" required>
+                    <button type="button" id="searchButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        Search
+                    </button>
+                </form>
+                <div id="patientOverview"></div>
+                <p id="status" class="status-message hidden"></p>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="script-access-records.js"></script>
+</body>
+</html>
